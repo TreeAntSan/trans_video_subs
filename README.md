@@ -148,4 +148,4 @@ ___
 
 * 对于日文Speech-to-Text的时候，会以｜分割同时给出平假名（左）和片假名（右），当前代码的处理是只取了左边的平假名来提交翻译。
 
-* 2022.04月 Goolge Speech-to-Text 更新了latest_short算法，针对非英语的video，采用latest_short算法结果有明显改善。参考：https://cloud.google.com/speech-to-text/docs/latest-models  
+* 2022.04月 Goolge Speech-to-Text 更新了latest_short算法，针对非英语的video，采用latest_short算法结果有明显改善。[Blog](https://cloud.google.com/blog/products/ai-machine-learning/google-cloud-updates-speech-api-models-for-improved-accuracy)，和[参考文档](https://cloud.google.com/speech-to-text/docs/latest-models)
