@@ -34,10 +34,14 @@ def long_running_recognize(sample_rate, channels, language_code, storage_uri):
         "audio_channel_count": channels,
         # "enable_word_confidence": True
     }
-    # TODO : Video model now only support en-US
+    # Video model now only support en-US;
+    # 2022.04 update latest_long model for non-EN;
     if language_code == 'en-US':
         config["use_enhanced"] = True
         config["model"] = "video"
+    else:
+        config["use_enhanced"] = True
+        config["model"] = "latest_long"
 
     audio = {"uri": storage_uri}
 
