@@ -13,7 +13,7 @@
 
 
 
-for i in *.mkv; do
+for i in *.mka; do
     if [ ! -e "${i%.*}".srt ]; then
         echo "${i%.*} ok"
         mkvextract tracks "$i" 1:"${i%.*}".srt

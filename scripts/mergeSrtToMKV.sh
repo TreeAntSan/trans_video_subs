@@ -16,8 +16,17 @@
 # for f in *\ *; do mv "$f" "${f// /_}"; done
 
 for i in *.mkv; do
-    if [ -f "${i%.*}".en.srt ] && [ ! -e "${i%.*}"-sub.mkv ]; then
-        echo "${i%.*} ok"
-        mkvmerge -o "${i%.*}"-sub.mkv "$i" --default-track 0 --language 0:en "${i%.*}".en.srt
+    # if the directory merge does not exist this will create it
+    mkdir -p merged
+
+    if [ -f "${i%.*}".en.srt ] && [ ! -e ./merged/"${i%.*}".mkv ]; then
+        echo "${i%.*} merging srt"
+        mkvmerge -o ./merged/"${i%.*}".mkv "$i" --default-track 0 --language 0:en "${i%.*}".en.srt
+    fi
+
+    # if no SRT present, ususally there was no dialog, still copy for convenience
+    if [ ! -f "${i%.*}".en.srt ] && [ ! -e ./merged/"${i%.*}".mkv ]; then
+        echo "${i%.*} no srt present"
+        cp "$i" ./merged/"${i%.*}".mkv
     fi
 done
