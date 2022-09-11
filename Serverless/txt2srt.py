@@ -16,9 +16,13 @@ def update_srt(langfile, subs):
     with open(langfile, encoding="utf8") as f:
         lines = f.readlines()
     i = 0
-    for line in lines:
-        subs[i].content = line
-        i += 1
+    try:
+        for line in lines:
+            subs[i].content = line
+            i += 1
+    except Exception as e:
+        print(e)
+        print(lines)
     return subs
 
 

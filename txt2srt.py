@@ -4,7 +4,7 @@ import srt
 def load_srt(filename):
     # load original .srt file
     # parse .srt file to list of subtitles
-    print("Loading {}".format(filename))
+    print("load_srt(): Loading {}".format(filename))
     with open(filename, encoding="utf8") as f:
         text = f.read()
     return list(srt.parse(text))
@@ -12,6 +12,7 @@ def load_srt(filename):
 
 def update_srt(langfile, subs):
     # change subtitles' content to translated lines
+    print("update_srt(): langfile: {}".format(langfile))
 
     with open(langfile, encoding="utf8") as f:
         lines = f.readlines()
@@ -30,7 +31,7 @@ def write_srt(lang, lang_subs, out_file):
     f = open(filename, "w", encoding="utf8")
     f.write(srt.compose(lang_subs, strict=True))
     f.close()
-    print("Wrote SRT file {}".format(filename))
+    print("write_srt(): Wrote SRT file {}".format(filename))
     return
 
 
