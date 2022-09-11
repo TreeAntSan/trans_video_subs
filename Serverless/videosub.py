@@ -22,8 +22,11 @@ global bucket_org, bucket_in, bucket_tmp, bucket_out, video_src_language_code, t
 def audio_to_file(filename, filename_audio):
     try:
         if not os.path.exists(filename_audio):
+            # Google charges per channel on audio transcription: https://cloud.google.com/speech-to-text/pricing
+            # https://trac.ffmpeg.org/wiki/AudioChannelManipulation
+            # "-ac 1": mono, "-vn": no video, "-y:" overwrite, "-loglevel warning": what it says
             ff = FFmpeg(inputs={filename: None},
-                        outputs={filename_audio: '-vn -y -loglevel warning'}
+                        outputs={filename_audio: '-ac 1 -vn -y -loglevel warning'}
                         )
             print(ff.cmd)
             ff.run()
@@ -255,7 +258,7 @@ def main():
     # You still need to set a fake bucket name with --bucket para, it is for creating tmp and output bucket
 
     parser.add_argument("--two_step_convert", type=str, default="False")
-    # Two steps Hard-encode the srt subtitle file into video, 
+    # Two steps Hard-encode the srt subtitle file into video,
     # "First" is output srt and don't delete the video
     # "Second" is hard-encode video and clean
 
@@ -282,7 +285,7 @@ def main():
     elif args.gui:
         gui = True
     else:
-        gui = False 
+        gui = False
     if gui:
         from tkinter import Tk, filedialog, END, StringVar, BooleanVar, messagebox
         from tkinter.ttk import Combobox, Label, Button, Entry, Spinbox, Checkbutton
@@ -291,7 +294,7 @@ def main():
             buckets = storage_client.list_buckets()
             Bucket_txt['values'] = [b.name for b in buckets]
             Bucket_txt.current(0)
-        
+
         def ListObjects(bucket):
             objects = storage_client.list_blobs(bucket)
             objects_list = [o.name for o in objects]
@@ -308,7 +311,7 @@ def main():
         Bucket_txt.grid(column=1, row=0, sticky='w', padx=2, pady=2)
         Button(window, text="List Buckets", width=10, command=ListBuckets) \
             .grid(column=2, row=0, sticky='w', padx=2, pady=2)
-        
+
         Label(window, text="Merge Caption to Video").grid(column=0, row=1, sticky='w', padx=2, pady=2)
         merge_sub_to_video_txt = Combobox(window, width=15, state="readonly")
         merge_sub_to_video_txt['values'] = ["True", "False"]
@@ -361,7 +364,7 @@ def main():
         file_list = bucket_file_name(bucket_org)
     else:
         file_list = [local_file]
-        
+
     # Pallaral process
     with futures.ThreadPoolExecutor(max_workers=parallel_threads) as pool:
         for filename in file_list:
@@ -390,7 +393,7 @@ def cloudrun_entry(bucket, filename):
         return
 
     global bucket_org, bucket_in, bucket_tmp, bucket_out, video_src_language_code, translate_src_code, translate_des_code, translate_location, merge_sub_to_video, two_step_convert, parallel_threads, local_file
-    
+
     bucket_org = bucket
     bucket_in = bucket_org + "-in"
     bucket_tmp = bucket_org + "-tmp"
@@ -403,7 +406,7 @@ def cloudrun_entry(bucket, filename):
     two_step_convert = os.environ.get("two_step_convert")
     parallel_threads = 1
     local_file = "NONE"
-    
+
     rstr = r"[\/\\\:\*\?\"\<\>\|\[\]\'\ \@\’\,]"  # '/ \ : * ? " < > | [ ] ' @ '
     filename_old = filename
     if re.search(rstr, filename):
