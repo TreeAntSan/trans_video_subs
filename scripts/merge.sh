@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 # Tried and tested on MacOS
 # Adapted from https://unix.stackexchange.com/a/568840
