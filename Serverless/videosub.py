@@ -13,7 +13,7 @@ from translate import batch_translate_text
 from txt2srt import txt2srt
 import argparse
 
-support_format = [".mov", ".mp4", ".mkv", ".avi", ".webm", ".flac"]
+support_format = [".mov", ".mp4", ".mkv", ".avi", ".webm", ".flac", "mka"]
 storage_client = storage.Client()
 project_id = storage_client.project
 translate_location = "us-central1"
