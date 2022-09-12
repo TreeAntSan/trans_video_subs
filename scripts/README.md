@@ -59,4 +59,23 @@ I can get a 2+ hour JAV translated (well enough) with just a few minutes of manu
 
 ### Common issues
 
-- If you can't seem to get a chunk to translate and you see the error "Total codepoints from input is 0", that means there's no dialog in that chunk! Make sure you don't skip that
+- If you can't seem to get a chunk to translate and you see the error "Total codepoints from input is 0", that means there's no dialog in that chunk!
+
+### Suggested aliases
+
+Add these lines to your bash/zsh profile/rc:
+
+```bash
+## MKV Projects
+export GCLOUD_TRANS_BUCKET="bucket_name_to_upload_to_goes_here"
+alias mkvsplit="~/git/trans_video_subs/scripts/splitVideo.sh"
+alias mkvupload="~/git/trans_video_subs/scripts/uploadToGCloud.sh"
+# This is the part where you download the files from Google to ./split with the script they let you copy
+alias srtmerge="~/git/trans_video_subs/scripts/mergeSrtToMKV.sh && cd ./merged"
+alias mkvjoin="~/git/trans_video_subs/scripts/joinVideo.sh && cd ./joined"
+alias srtext="~/git/trans_video_subs/scripts/extractSrtFromMKA.sh"
+```
+
+- It's ordered in the general order of execution
+- I added helpful `cd` commands where a new directory is created.
+- You'll still need to select and batch download the resulting files.
