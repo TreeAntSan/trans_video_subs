@@ -12,3 +12,5 @@ mkvmerge -o ./split/"${file%.*}"_%03d.mkv \
   --no-video --no-subtitles --no-buttons --no-track-tags --no-chapters \
   --no-attachments --no-global-tags \
   "$file"
+
+cd ./split

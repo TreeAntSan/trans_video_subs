@@ -18,4 +18,4 @@ OUTPUT_FILE="${FIRST_FILE%_001.mkv}".mka
 ALL_MKV_FILES=$(ls *.mkv | xargs)
 mkvmerge -o ./joined/${OUTPUT_FILE} '[' ${ALL_MKV_FILES} ']'
 
-# Recommend adding `&& cd ./joined` to your alias to save you a step
+cd ./joined

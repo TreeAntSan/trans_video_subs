@@ -35,4 +35,4 @@ for i in *.mkv; do
     fi
 done
 
-# Recommend adding `&& cd ./merged` to your alias to save you a step
+cd ./merged
